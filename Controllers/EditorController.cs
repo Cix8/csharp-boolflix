@@ -179,7 +179,7 @@ namespace csharp_boolflix.Controllers
         {
             EpisodesBuilder episodesBuilder = new EpisodesBuilder();
             TVSeries series = _db.TVSeries.Where(series => series.Id == id).First();
-            episodesBuilder.Series = series;
+            episodesBuilder.NewEpisode.TVSeries = series;
             episodesBuilder.Episodes = _db.Episodes.Where(ep => ep.TVSeriesId == series.Id).ToList();
             return View("Episodes/Create", episodesBuilder);
         }
@@ -192,7 +192,7 @@ namespace csharp_boolflix.Controllers
             if (!ModelState.IsValid)
             {
                 TVSeries series = _db.TVSeries.Where(series => series.Id == id).First();
-                formData.Series = series;
+                formData.NewEpisode.TVSeries = series;
                 formData.Episodes = _db.Episodes.Where(ep => ep.TVSeriesId == series.Id).ToList();
                 return View("Episodes/Create", formData);
             }
@@ -200,7 +200,7 @@ namespace csharp_boolflix.Controllers
             formData.NewEpisode.TVSeriesId = id;
             _db.Episodes.Add(formData.NewEpisode);
             _db.SaveChanges();
-            return RedirectToAction("Episodes");
+            return RedirectToAction("Episodes", new {id = id});
         }
     }
 }

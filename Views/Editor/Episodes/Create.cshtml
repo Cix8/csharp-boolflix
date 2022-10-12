@@ -4,7 +4,7 @@
 
 @{
     Layout = "_EditorLayout";
-    ViewData["Title"] = $"Episodi di {Model.Series.Title}";
+    ViewData["Title"] = $"Episodi di {Model.NewEpisode.TVSeries.Title}";
 }
 
 
@@ -28,7 +28,7 @@ else
 <div>
     <h3 class="text-center">Aggiungi una serie TV</h3>
 </div>
-<form asp-controller="Editor" asp-action="CreateEpisode" asp-route-id="@Model.Series.Id" method="post">
+<form asp-controller="Editor" asp-action="CreateEpisode" asp-route-id="@Model.NewEpisode.TVSeries.Id" method="post">
     @Html.AntiForgeryToken()
     <div class="form-check mb-3">
         <label for="title" class="form-label">Titolo:</label>
@@ -39,7 +39,7 @@ else
         <span class="form-label">Stagione:</span>
         <select asp-for="NewEpisode.Season" class="form-select" aria-label="Default select example">
             <option value="">Seleziona una stagione di appartenenza</option>
-            @for(int i = 1; i <= Model.Series.SeasonsCounter; i++)
+            @for(int i = 1; i <= Model.NewEpisode.TVSeries.SeasonsCounter; i++)
             {
                 @if (Model.NewEpisode.Season == i)
                 {
