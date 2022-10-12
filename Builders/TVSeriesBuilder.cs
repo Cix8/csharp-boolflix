@@ -3,15 +3,15 @@ using csharp_boolflix.Models;
 
 namespace csharp_boolflix.Builders
 {
-    public class FilmsBuilder : MediaBuilder
+    public class TVSeriesBuilder : MediaBuilder
     {
-        public Film NewFilm { get; set; }
-        public List<Film> Films { get; set; }
-        public FilmsBuilder()
+        public TVSeries NewSeries { get; set; }
+        public List<TVSeries> Series { get; set; }
+        public TVSeriesBuilder()
         {
-            NewFilm = new Film();
+            NewSeries = new TVSeries();
             NewMediaInfo = new MediaInfo();
-            Films = new List<Film>();
+            Series = new List<TVSeries>();
             Actors = new List<Actor>();
             Genres = new List<Genre>();
             Features = new List<Feature>();

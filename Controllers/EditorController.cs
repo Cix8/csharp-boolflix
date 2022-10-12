@@ -137,5 +137,41 @@ namespace csharp_boolflix.Controllers
             _db.SaveChanges();
             return RedirectToAction("Films");
         }
+
+        public IActionResult TVSeries()
+        {
+            TVSeriesBuilder tvSeriesBuilder = new TVSeriesBuilder();
+            tvSeriesBuilder.Series = _db.TVSeries.ToList();
+            tvSeriesBuilder.Features = _db.Features.ToList();
+            tvSeriesBuilder.Actors = _db.Actors.ToList();
+            tvSeriesBuilder.Genres = _db.Genres.ToList();
+            tvSeriesBuilder.Classifications = _db.Classifications.ToList();
+            return View("TVSeries/Create", tvSeriesBuilder);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateSeries(TVSeriesBuilder formData)
+        {
+            if (!ModelState.IsValid)
+            {
+                formData.Series = _db.TVSeries.ToList();
+                formData.Features = _db.Features.ToList();
+                formData.Actors = _db.Actors.ToList();
+                formData.Genres = _db.Genres.ToList();
+                formData.Classifications = _db.Classifications.ToList();
+                return View("TVSeries/Create", formData);
+            }
+            _db.TVSeries.Add(formData.NewSeries);
+            _db.SaveChanges();
+            formData.NewMediaInfo.Actors = _db.Actors.Where(act => formData.selectedActors.Contains(act.Id)).ToList();
+            formData.NewMediaInfo.Features = _db.Features.Where(feat => formData.selectedFeatures.Contains(feat.Id)).ToList();
+            formData.NewMediaInfo.Genres = _db.Genres.Where(gen => formData.selectedGenres.Contains(gen.Id)).ToList();
+            TVSeries storedSeries = _db.TVSeries.Where(series => series.Title == formData.NewSeries.Title).First();
+            formData.NewMediaInfo.TVSeriesId = storedSeries.Id;
+            _db.MediaInfos.Add(formData.NewMediaInfo);
+            _db.SaveChanges();
+            return RedirectToAction("TVSeries");
+        }
     }
 }
