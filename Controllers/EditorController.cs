@@ -67,6 +67,8 @@ namespace csharp_boolflix.Controllers
             return View(pegisBuilder);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateClassification(ClassificationsBuilder formData)
         {
             if (!ModelState.IsValid)
@@ -77,6 +79,27 @@ namespace csharp_boolflix.Controllers
             _db.Classifications.Add(formData.NewClassification);
             _db.SaveChanges();
             return RedirectToAction("Classifications");
+        }
+
+        public IActionResult Features()
+        {
+            FeaturesBuilder featuresBuilder = new FeaturesBuilder();
+            featuresBuilder.Features = _db.Features.ToList();
+            return View(featuresBuilder);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateFeature(FeaturesBuilder formData)
+        {
+            if (!ModelState.IsValid)
+            {
+                formData.Features = _db.Features.ToList();
+                return View("Features", formData);
+            }
+            _db.Features.Add(formData.NewFeature);
+            _db.SaveChanges();
+            return RedirectToAction("Features");
         }
     }
 }

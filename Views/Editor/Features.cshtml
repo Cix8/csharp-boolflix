@@ -1,0 +1,39 @@
+﻿@using csharp_boolflix.Builders
+@{
+    Layout = "_EditorLayout";
+    ViewData["Title"] = "Caratteristiche";
+}
+
+@model FeaturesBuilder
+
+@if (Model.Features.Count > 0)
+{
+    <h2 class="text-center">Lista Generi: </h2>
+    <ul class="list-group w-50 mx-auto my-3">
+        @foreach (Feature feat in Model.Features)
+        {
+            <li class="list-group-item">
+                <span>@feat.Name</span>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <h2 class="text-center">La lista di caratteristiche è vuota... </h2>
+}
+
+<div>
+    <h3 class="text-center">Aggiungi caratteristica</h3>
+</div>
+<form asp-controller="Editor" asp-action="CreateFeature" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-check mb-3">
+        <label for="name" class="form-label">Nome:</label>
+        <input type="text" class="form-control" id="name" placeholder="Inserisci il nome della nuova caratteristica" asp-for="NewFeature.Name">
+        <span asp-validation-for="NewFeature.Name" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <button type="submit" class="btn btn-primary">Invia</button>
+    </div>
+</form>

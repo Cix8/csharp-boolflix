@@ -34,7 +34,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasIndex("MediaInfosId");
 
-                    b.ToTable("ActorMediaInfo");
+                    b.ToTable("ActorMediaInfo", (string)null);
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.Actor", b =>
@@ -55,7 +55,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Actors");
+                    b.ToTable("Actors", (string)null);
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.Classification", b =>
@@ -71,7 +71,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Classifications");
+                    b.ToTable("Classifications", (string)null);
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.Episode", b =>
@@ -110,7 +110,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasIndex("TVSeriesId");
 
-                    b.ToTable("Episodes");
+                    b.ToTable("Episodes", (string)null);
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.Feature", b =>
@@ -127,7 +127,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Features");
+                    b.ToTable("Features", (string)null);
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.Film", b =>
@@ -166,7 +166,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasIndex("ClassificationId");
 
-                    b.ToTable("Films");
+                    b.ToTable("Films", (string)null);
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.Genre", b =>
@@ -183,7 +183,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres");
+                    b.ToTable("Genres", (string)null);
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.MediaInfo", b =>
@@ -224,7 +224,7 @@ namespace csharp_boolflix.Migrations
                         .IsUnique()
                         .HasFilter("[TVSeriesId] IS NOT NULL");
 
-                    b.ToTable("MediaInfos");
+                    b.ToTable("MediaInfos", (string)null);
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.TVSeries", b =>
@@ -263,7 +263,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasIndex("ClassificationId");
 
-                    b.ToTable("TVSeries");
+                    b.ToTable("TVSeries", (string)null);
                 });
 
             modelBuilder.Entity("FeatureMediaInfo", b =>
@@ -278,7 +278,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasIndex("MediaInfosId");
 
-                    b.ToTable("FeatureMediaInfo");
+                    b.ToTable("FeatureMediaInfo", (string)null);
                 });
 
             modelBuilder.Entity("GenreMediaInfo", b =>
@@ -293,7 +293,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasIndex("MediaInfosId");
 
-                    b.ToTable("GenreMediaInfo");
+                    b.ToTable("GenreMediaInfo", (string)null);
                 });
 
             modelBuilder.Entity("ActorMediaInfo", b =>
