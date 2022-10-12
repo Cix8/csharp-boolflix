@@ -1,0 +1,41 @@
+﻿@using csharp_boolflix.Builders
+@{
+    ViewData["Title"] = "Attori";
+    Layout = "_EditorLayout";
+}
+
+@model ActorsBuilder
+
+@if(Model.Actors.Count > 0) {
+    <h2 class="text-center">Lista attori: </h2>
+    <ul class="list-group w-50 mx-auto my-3">
+        @foreach(Actor actor in Model.Actors) {
+            <li class="list-group-item">
+                <span>@actor.Name</span>
+                <span>@actor.Lastname</span>
+            </li>
+        }
+    </ul>
+} else {
+    <h2 class="text-center">La lista attori è vuota... </h2>
+}
+
+<div>
+    <h3 class="text-center">Aggiungi attore/attrice</h3>
+</div>
+<form asp-controller="Editor" asp-action="CreateActor" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-check mb-3">
+        <label for="name" class="form-label">Nome:</label>
+        <input type="text" class="form-control" id="name" placeholder="Inserisci il nome dell'attore/attrice'" asp-for="NewActor.Name">
+        <span asp-validation-for="NewActor.Name" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <label for="lastname" class="form-label">Cognome:</label>
+        <input type="text" class="form-control" id="lastname" placeholder="Inserisci il cognome dell'attore/attrice'" asp-for="NewActor.Lastname">
+        <span asp-validation-for="NewActor.Lastname" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <button type="submit" class="btn btn-primary">Invia</button>
+    </div>
+</form>

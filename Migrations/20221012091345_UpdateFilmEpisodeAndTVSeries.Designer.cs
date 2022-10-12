@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using csharp_boolflix.Context;
 
@@ -11,9 +12,10 @@ using csharp_boolflix.Context;
 namespace csharp_boolflix.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20221012091345_UpdateFilmEpisodeAndTVSeries")]
+    partial class UpdateFilmEpisodeAndTVSeries
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasIndex("MediaInfosId");
 
-                    b.ToTable("ActorMediaInfo", (string)null);
+                    b.ToTable("ActorMediaInfo");
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.Actor", b =>
@@ -55,7 +57,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Actors", (string)null);
+                    b.ToTable("Actors");
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.Episode", b =>
@@ -94,7 +96,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasIndex("TVSeriesId");
 
-                    b.ToTable("Episodes", (string)null);
+                    b.ToTable("Episodes");
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.Feature", b =>
@@ -111,7 +113,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Features", (string)null);
+                    b.ToTable("Features");
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.Film", b =>
@@ -147,7 +149,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasIndex("PegiId");
 
-                    b.ToTable("Films", (string)null);
+                    b.ToTable("Films");
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.Genre", b =>
@@ -164,7 +166,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Genres", (string)null);
+                    b.ToTable("Genres");
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.MediaInfo", b =>
@@ -205,7 +207,7 @@ namespace csharp_boolflix.Migrations
                         .IsUnique()
                         .HasFilter("[TVSeriesId] IS NOT NULL");
 
-                    b.ToTable("MediaInfos", (string)null);
+                    b.ToTable("MediaInfos");
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.Pegi", b =>
@@ -222,7 +224,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pegis", (string)null);
+                    b.ToTable("Pegis");
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.TVSeries", b =>
@@ -258,7 +260,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasIndex("PegiId");
 
-                    b.ToTable("TVSeries", (string)null);
+                    b.ToTable("TVSeries");
                 });
 
             modelBuilder.Entity("FeatureMediaInfo", b =>
@@ -273,7 +275,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasIndex("MediaInfosId");
 
-                    b.ToTable("FeatureMediaInfo", (string)null);
+                    b.ToTable("FeatureMediaInfo");
                 });
 
             modelBuilder.Entity("GenreMediaInfo", b =>
@@ -288,7 +290,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasIndex("MediaInfosId");
 
-                    b.ToTable("GenreMediaInfo", (string)null);
+                    b.ToTable("GenreMediaInfo");
                 });
 
             modelBuilder.Entity("ActorMediaInfo", b =>

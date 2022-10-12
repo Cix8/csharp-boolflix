@@ -8,5 +8,10 @@ namespace csharp_boolflix.Models
         public string Name { get; set; }
         public List<Film> Films { get; set; }
         public List<TVSeries> TVSeries { get; set; }
+
+        public Pegi()
+        {
+
+        }
     }
 }
