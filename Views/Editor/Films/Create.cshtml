@@ -1,0 +1,140 @@
+﻿@using csharp_boolflix.Builders
+@{
+    Layout = "_EditorLayout";
+    ViewData["Title"] = "Film";
+}
+
+@model FilmsBuilder
+
+@if (Model.Films.Count > 0)
+{
+    <h2 class="text-center">Lista Generi: </h2>
+    <ul class="list-group w-50 mx-auto my-3">
+        @foreach (Film film in Model.Films)
+        {
+            <li class="list-group-item">
+                <span>@film.Title</span>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <h2 class="text-center">La lista di film è vuota... </h2>
+}
+
+<div>
+    <h3 class="text-center">Aggiungi un film</h3>
+</div>
+<form asp-controller="Editor" asp-action="CreateFilm" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-check mb-3">
+        <label for="title" class="form-label">Titolo:</label>
+        <input type="text" class="form-control" id="title" placeholder="Inserisci il titolo del film" asp-for="NewFilm.Title">
+        <span asp-validation-for="NewFilm.Title" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <label for="duration" class="form-label">Durata in minuti:</label>
+        <input type="number" class="form-control" id="duration" placeholder="Inserisci la durata del film in minuti" asp-for="NewFilm.DurationInMinutes">
+        <span asp-validation-for="NewFilm.DurationInMinutes" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <label for="cover" class="form-label">Cover:</label>
+        <input type="text" class="form-control" id="cover" placeholder="Inserisci il percorso della cover del film" asp-for="NewFilm.Cover">
+        <span asp-validation-for="NewFilm.Cover" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <label for="description" class="form-label">Descrizione:</label>
+        <textarea class="form-control" rows="10" id="description" asp-for="NewFilm.Description"></textarea>
+        <span asp-validation-for="NewFilm.Description" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <label for="year" class="form-label">Anno:</label>
+        <input type="text" class="form-control" id="year" placeholder="Inserisci l'anno di produzione del film" asp-for="NewMediaInfo.Year">
+        <span asp-validation-for="NewMediaInfo.Year" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <label for="quality" class="form-label">Qualità video:</label>
+        <input type="number" class="form-control" id="quality" placeholder="Inserisci la qualità video del film" asp-for="NewMediaInfo.VideoQuality">
+        <span asp-validation-for="NewMediaInfo.VideoQuality" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <span class="form-label">Attori:</span>
+        <select asp-for="selectedActors" class="form-select" multiple>
+            @foreach (Actor actor in Model.Actors)
+            {
+                @if (Model.NewMediaInfo.Actors.Contains(actor))
+                {
+                    <option value="@actor.Id" selected>@actor.Name @actor.Lastname</option>
+                }
+                else
+                {
+                    <option value="@actor.Id">@actor.Name @actor.Lastname</option>
+                }
+            }
+        </select>
+        <span asp-validation-for="selectedActors" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <span class="form-label">Classificazione:</span>
+        <select asp-for="NewFilm.ClassificationId" class="form-select" aria-label="Default select example">
+            <option value="">Seleziona una categoria...</option>
+            @foreach (Classification classification in Model.Classifications)
+            {
+                @if (Model.NewFilm.ClassificationId == classification.Id)
+                {
+                    <option value="@classification.Id" selected>@classification.Age+</option>
+                }
+                else
+                {
+                    <option value="@classification.Id">@classification.Age+</option>
+                }
+            }
+        </select>
+        <span asp-validation-for="NewFilm.ClassificationId" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <span class="form-label">Generi:</span>
+        <select asp-for="selectedGenres" class="form-select" multiple>
+            @foreach (Genre genre in Model.Genres)
+            {
+                @if (Model.NewMediaInfo.Genres.Contains(genre))
+                {
+                    <option value="@genre.Id" selected>@genre.Name</option>
+                }
+                else
+                {
+                    <option value="@genre.Id">@genre.Name</option>
+                }
+            }
+        </select>
+        <span asp-validation-for="selectedGenres" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <span class="form-label">Caratteristiche:</span>
+        <select asp-for="selectedFeatures" class="form-select" multiple>
+            @foreach (Feature feature in Model.Features)
+            {
+                @if (Model.NewMediaInfo.Features.Contains(feature))
+                {
+                    <option value="@feature.Id" selected>@feature.Name</option>
+                }
+                else
+                {
+                    <option value="@feature.Id">@feature.Name</option>
+                }
+            }
+        </select>
+        <span asp-validation-for="selectedFeatures" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <div class="form-switch">
+            <input class="form-check-input" type="checkbox" id="isNew" asp-for="NewMediaInfo.IsNew">
+            <label class="form-check-label" for="isNew">Novità</label>
+            <span asp-validation-for="NewMediaInfo.IsNew" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-check mb-3">
+        <button type="submit" class="btn btn-primary">Invia</button>
+    </div>
+</form>

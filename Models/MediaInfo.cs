@@ -16,7 +16,10 @@
         public List<Feature> Features { get; set; }
         public MediaInfo()
         {
-
+            this.InputDate = DateTime.Now.ToString("dd/MM/yyyy");
+            Actors = new List<Actor>();
+            Genres = new List<Genre>();
+            Features = new List<Feature>();
         }
     }
 }
