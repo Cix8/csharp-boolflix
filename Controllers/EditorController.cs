@@ -2,6 +2,7 @@
 using csharp_boolflix.Context;
 using csharp_boolflix.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace csharp_boolflix.Controllers
 {
@@ -172,6 +173,34 @@ namespace csharp_boolflix.Controllers
             _db.MediaInfos.Add(formData.NewMediaInfo);
             _db.SaveChanges();
             return RedirectToAction("TVSeries");
+        }
+
+        public IActionResult Episodes(int id)
+        {
+            EpisodesBuilder episodesBuilder = new EpisodesBuilder();
+            TVSeries series = _db.TVSeries.Where(series => series.Id == id).First();
+            episodesBuilder.Series = series;
+            episodesBuilder.Episodes = _db.Episodes.Where(ep => ep.TVSeriesId == series.Id).ToList();
+            return View("Episodes/Create", episodesBuilder);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateEpisode(int id, EpisodesBuilder formData)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                TVSeries series = _db.TVSeries.Where(series => series.Id == id).First();
+                formData.Series = series;
+                formData.Episodes = _db.Episodes.Where(ep => ep.TVSeriesId == series.Id).ToList();
+                return View("Episodes/Create", formData);
+            }
+
+            formData.NewEpisode.TVSeriesId = id;
+            _db.Episodes.Add(formData.NewEpisode);
+            _db.SaveChanges();
+            return RedirectToAction("Episodes");
         }
     }
 }

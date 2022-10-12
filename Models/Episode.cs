@@ -7,10 +7,10 @@ namespace csharp_boolflix.Models
         public int DurationInMinutes { get; set; }
         public int Season { get; set; }
         public int TVSeriesId { get; set; }
-        public TVSeries TVSeries { get; set; }
+        public TVSeries? TVSeries { get; set; }
         public Episode()
         {
-
+            this.ViewsCounter = 0;
         }
     }
 }
