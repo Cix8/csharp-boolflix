@@ -6,7 +6,7 @@ namespace csharp_boolflix.Models
     {
         public int DurationInMinutes { get; set; }
         public MediaInfo MediaInfo { get; set; }
-        public int PegiId { get; set; }
+        public int ClassificationId { get; set; }
         public Classification Classification { get; set; }
         public Film()
         {

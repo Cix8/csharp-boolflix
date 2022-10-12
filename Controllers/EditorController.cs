@@ -22,7 +22,7 @@ namespace csharp_boolflix.Controllers
         {
             ActorsBuilder actorsBuilder = new ActorsBuilder();
             actorsBuilder.Actors = _db.Actors.ToList();
-            return View(actorsBuilder);
+            return View("Create/Actors", actorsBuilder);
         }
 
         [HttpPost]
@@ -32,18 +32,18 @@ namespace csharp_boolflix.Controllers
             if(!ModelState.IsValid)
             {
                 formData.Actors = _db.Actors.ToList();
-                return View("Actors", formData);
+                return View("Create/Actors", formData);
             }
             _db.Actors.Add(formData.NewActor);
             _db.SaveChanges();
-            return RedirectToAction("Actors");
+            return RedirectToAction("Create/Actors");
         }
 
         public IActionResult Genres()
         {
             GenresBuilder genresBuilder = new GenresBuilder();
             genresBuilder.Genres = _db.Genres.ToList();
-            return View(genresBuilder);
+            return View("Create/Genres", genresBuilder);
         }
 
         [HttpPost]
@@ -53,18 +53,18 @@ namespace csharp_boolflix.Controllers
             if (!ModelState.IsValid)
             {
                 formData.Genres = _db.Genres.ToList();
-                return View("Genres", formData);
+                return View("Create/Genres", formData);
             }
             _db.Genres.Add(formData.NewGenre);
             _db.SaveChanges();
-            return RedirectToAction("Genres");
+            return RedirectToAction("Create/Genres");
         }
 
         public IActionResult Classifications()
         {
             ClassificationsBuilder pegisBuilder = new ClassificationsBuilder();
-            pegisBuilder.Classifications = _db.Classifications.ToList();
-            return View(pegisBuilder);
+            pegisBuilder.Classifications = _db.Classifications.OrderBy(c => c.Age).ToList();
+            return View("Create/Classifications", pegisBuilder);
         }
 
         [HttpPost]
@@ -73,19 +73,19 @@ namespace csharp_boolflix.Controllers
         {
             if (!ModelState.IsValid)
             {
-                formData.Classifications = _db.Classifications.ToList();
-                return View("Classifications", formData);
+                formData.Classifications = _db.Classifications.OrderBy(c => c.Age).ToList();
+                return View("Create/Classifications", formData);
             }
             _db.Classifications.Add(formData.NewClassification);
             _db.SaveChanges();
-            return RedirectToAction("Classifications");
+            return RedirectToAction("Create/Classifications");
         }
 
         public IActionResult Features()
         {
             FeaturesBuilder featuresBuilder = new FeaturesBuilder();
             featuresBuilder.Features = _db.Features.ToList();
-            return View(featuresBuilder);
+            return View("Create/Features", featuresBuilder);
         }
 
         [HttpPost]
@@ -95,11 +95,11 @@ namespace csharp_boolflix.Controllers
             if (!ModelState.IsValid)
             {
                 formData.Features = _db.Features.ToList();
-                return View("Features", formData);
+                return View("Create/Features", formData);
             }
             _db.Features.Add(formData.NewFeature);
             _db.SaveChanges();
-            return RedirectToAction("Features");
+            return RedirectToAction("Create/Features");
         }
     }
 }
