@@ -12,7 +12,7 @@ namespace csharp_boolflix.Context
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Feature> Features { get; set; }
         public DbSet<MediaInfo> MediaInfos { get; set; }
-        public DbSet<Pegi> Pegis { get; set; }
+        public DbSet<Classification> Classifications { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=boolflix_db;Integrated Security=True");

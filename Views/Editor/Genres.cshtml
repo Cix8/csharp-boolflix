@@ -1,0 +1,39 @@
+﻿@using csharp_boolflix.Builders
+@{
+    ViewData["Title"] = "Generi";
+    Layout = "_EditorLayout";
+}
+
+@model GenresBuilder
+
+@if (Model.Genres.Count > 0)
+{
+    <h2 class="text-center">Lista Generi: </h2>
+    <ul class="list-group w-50 mx-auto my-3">
+        @foreach (Genre genre in Model.Genres)
+        {
+            <li class="list-group-item">
+                <span>@genre.Name</span>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <h2 class="text-center">La lista generi è vuota... </h2>
+}
+
+<div>
+    <h3 class="text-center">Aggiungi genere</h3>
+</div>
+<form asp-controller="Editor" asp-action="CreateGenre" method="post">
+    @Html.AntiForgeryToken()
+    <div class="form-check mb-3">
+        <label for="name" class="form-label">Nome:</label>
+        <input type="text" class="form-control" id="name" placeholder="Inserisci il nome del nuovo genere" asp-for="NewGenre.Name">
+        <span asp-validation-for="NewGenre.Name" class="text-danger"></span>
+    </div>
+    <div class="form-check mb-3">
+        <button type="submit" class="btn btn-primary">Invia</button>
+    </div>
+</form>

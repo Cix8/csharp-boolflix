@@ -38,5 +38,45 @@ namespace csharp_boolflix.Controllers
             _db.SaveChanges();
             return RedirectToAction("Actors");
         }
+
+        public IActionResult Genres()
+        {
+            GenresBuilder genresBuilder = new GenresBuilder();
+            genresBuilder.Genres = _db.Genres.ToList();
+            return View(genresBuilder);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateGenre(GenresBuilder formData)
+        {
+            if (!ModelState.IsValid)
+            {
+                formData.Genres = _db.Genres.ToList();
+                return View("Genres", formData);
+            }
+            _db.Genres.Add(formData.NewGenre);
+            _db.SaveChanges();
+            return RedirectToAction("Genres");
+        }
+
+        public IActionResult Classifications()
+        {
+            ClassificationsBuilder pegisBuilder = new ClassificationsBuilder();
+            pegisBuilder.Classifications = _db.Classifications.ToList();
+            return View(pegisBuilder);
+        }
+
+        public IActionResult CreateClassification(ClassificationsBuilder formData)
+        {
+            if (!ModelState.IsValid)
+            {
+                formData.Classifications = _db.Classifications.ToList();
+                return View("Classifications", formData);
+            }
+            _db.Classifications.Add(formData.NewClassification);
+            _db.SaveChanges();
+            return RedirectToAction("Classifications");
+        }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using csharp_boolflix.Context;
 
@@ -11,9 +12,10 @@ using csharp_boolflix.Context;
 namespace csharp_boolflix.Migrations
 {
     [DbContext(typeof(MyContext))]
-    partial class MyContextModelSnapshot : ModelSnapshot
+    [Migration("20221012101801_AlterPegiTable")]
+    partial class AlterPegiTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -56,22 +58,6 @@ namespace csharp_boolflix.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Actors");
-                });
-
-            modelBuilder.Entity("csharp_boolflix.Models.Classification", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Classifications");
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.Episode", b =>
@@ -138,9 +124,6 @@ namespace csharp_boolflix.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ClassificationId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Cover")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -164,7 +147,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClassificationId");
+                    b.HasIndex("PegiId");
 
                     b.ToTable("Films");
                 });
@@ -227,7 +210,7 @@ namespace csharp_boolflix.Migrations
                     b.ToTable("MediaInfos");
                 });
 
-            modelBuilder.Entity("csharp_boolflix.Models.TVSeries", b =>
+            modelBuilder.Entity("csharp_boolflix.Models.Pegi", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -235,8 +218,21 @@ namespace csharp_boolflix.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("ClassificationId")
+                    b.Property<int>("Age")
                         .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Pegis");
+                });
+
+            modelBuilder.Entity("csharp_boolflix.Models.TVSeries", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Cover")
                         .IsRequired()
@@ -261,7 +257,7 @@ namespace csharp_boolflix.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClassificationId");
+                    b.HasIndex("PegiId");
 
                     b.ToTable("TVSeries");
                 });
@@ -324,13 +320,13 @@ namespace csharp_boolflix.Migrations
 
             modelBuilder.Entity("csharp_boolflix.Models.Film", b =>
                 {
-                    b.HasOne("csharp_boolflix.Models.Classification", "Classification")
+                    b.HasOne("csharp_boolflix.Models.Pegi", "Pegi")
                         .WithMany("Films")
-                        .HasForeignKey("ClassificationId")
+                        .HasForeignKey("PegiId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Classification");
+                    b.Navigation("Pegi");
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.MediaInfo", b =>
@@ -350,13 +346,13 @@ namespace csharp_boolflix.Migrations
 
             modelBuilder.Entity("csharp_boolflix.Models.TVSeries", b =>
                 {
-                    b.HasOne("csharp_boolflix.Models.Classification", "Classification")
+                    b.HasOne("csharp_boolflix.Models.Pegi", "Pegi")
                         .WithMany("TVSeries")
-                        .HasForeignKey("ClassificationId")
+                        .HasForeignKey("PegiId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Classification");
+                    b.Navigation("Pegi");
                 });
 
             modelBuilder.Entity("FeatureMediaInfo", b =>
@@ -389,17 +385,17 @@ namespace csharp_boolflix.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("csharp_boolflix.Models.Classification", b =>
-                {
-                    b.Navigation("Films");
-
-                    b.Navigation("TVSeries");
-                });
-
             modelBuilder.Entity("csharp_boolflix.Models.Film", b =>
                 {
                     b.Navigation("MediaInfo")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("csharp_boolflix.Models.Pegi", b =>
+                {
+                    b.Navigation("Films");
+
+                    b.Navigation("TVSeries");
                 });
 
             modelBuilder.Entity("csharp_boolflix.Models.TVSeries", b =>
