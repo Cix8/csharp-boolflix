@@ -1,0 +1,47 @@
+﻿@using csharp_boolflix.GuestUtility
+@{
+    Layout = "_GuestLayout";
+    ViewData["Title"] = "Boolflix - Home";
+}
+
+@model IndexUtility
+
+<h2>Film</h2>
+@if(Model.Films.Count > 0) {
+    <ul class="list-group flex-row">
+        @foreach(Film film in Model.Films) {
+            <li class="card" style="width: 18rem;">
+                <img class="card-img-top" src="@film.Cover" alt="@film.Title - cover" style="height: 10rem; object-fit: cover; object-position: top;">
+                <div class="card-body">
+                    <h5 class="card-title">@film.Title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@film.DurationInMinutes min</h6>
+                    <p class="card-text">@film.Description</p>
+                </div>
+            </li>
+        }
+    </ul>
+} else {
+    <h3>Nessun Film disponibile attualmente...</h3>
+}
+
+<h2>Serie TV</h2>
+@if (Model.Films.Count > 0)
+{
+    <ul class="list-group flex-row">
+        @foreach (TVSeries series in Model.TVSeries)
+        {
+            <li class="card" style="width: 18rem;">
+                <img class="card-img-top" src="@series.Cover" alt="@series.Title - cover" style="height: 10rem; object-fit: cover; object-position: top;">
+                <div class="card-body">
+                    <h5 class="card-title">@series.Title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@series.SeasonsCounter stagioni</h6>
+                    <p class="card-text">@series.Description</p>
+                </div>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <h3>Nessuna Serie TV disponibile attualmente...</h3>
+}

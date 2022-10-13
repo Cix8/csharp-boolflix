@@ -1,11 +1,13 @@
 ﻿using csharp_boolflix.Builders;
 using csharp_boolflix.Context;
 using csharp_boolflix.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace csharp_boolflix.Controllers
 {
+    [Authorize]
     public class EditorController : Controller
     {
         private MyContext _db;

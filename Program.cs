@@ -1,4 +1,14 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using csharp_boolflix.Context;
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("MyContextConnection") ?? throw new InvalidOperationException("Connection string 'MyContextConnection' not found.");
+
+builder.Services.AddDbContext<MyContext>(options =>
+    options.UseSqlServer(connectionString));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<MyContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -18,10 +28,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Editor}/{action=Index}/{id?}");
+    pattern: "{controller=Guest}/{action=Index}/{id?}");
+
+app.MapRazorPages();
 
 app.Run();

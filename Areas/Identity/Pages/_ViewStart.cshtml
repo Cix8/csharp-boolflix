@@ -1,0 +1,8 @@
+@inject SignInManager<IdentityUser> SignInManager
+
+@{
+    Layout = "_GuestLayout";
+    if (SignInManager.IsSignedIn(User)) {
+        Layout = "_EditorLayout";
+    }
+}
