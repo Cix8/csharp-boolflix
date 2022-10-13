@@ -1,0 +1,27 @@
+﻿@model TVSeries
+
+@{
+    Layout = "_GuestLayout";
+    ViewData["Title"] = $"Boolflix - {Model.Title}";
+}
+
+@if (Model.Episodes.Count > 0)
+{
+    <ul class="list-group flex-row">
+        @foreach (Episode ep in Model.Episodes)
+        {
+            <li class="card" style="width: 18rem;">
+                <img class="card-img-top" src="@ep.Cover" alt="@ep.Title - cover" style="height: 10rem; object-fit: cover; object-position: top;">
+                <div class="card-body">
+                    <h5 class="card-title">@ep.Title</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@ep.DurationInMinutes min</h6>
+                    <p class="card-text">@ep.Description</p>
+                </div>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <h3>Nessun Episodio disponibile attualmente...</h3>
+}

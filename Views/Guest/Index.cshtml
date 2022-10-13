@@ -30,13 +30,15 @@
     <ul class="list-group flex-row">
         @foreach (TVSeries series in Model.TVSeries)
         {
-            <li class="card" style="width: 18rem;">
-                <img class="card-img-top" src="@series.Cover" alt="@series.Title - cover" style="height: 10rem; object-fit: cover; object-position: top;">
-                <div class="card-body">
-                    <h5 class="card-title">@series.Title</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">@series.SeasonsCounter stagioni</h6>
-                    <p class="card-text">@series.Description</p>
-                </div>
+            <li>
+                <a class="card" style="width: 18rem; text-decoration: none;" href="@Url.Action("Episodes", "Guest", new {id = series.Id})">
+                    <img class="card-img-top" src="@series.Cover" alt="@series.Title - cover" style="height: 10rem; object-fit: cover; object-position: top;">
+                    <div class="card-body">
+                        <h5 class="card-title">@series.Title</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@series.SeasonsCounter stagioni</h6>
+                        <p class="card-text">@series.Description</p>
+                    </div>
+                </a>
             </li>
         }
     </ul>
